@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection.Metadata.Ecma335;
 using Amazon;
 using Amazon.EC2;
 using Amazon.EC2.Model;
 using CommandLine;
+using CommandLine.Text;
 
 namespace EC2GroupAccessUpdater
 {
@@ -18,7 +20,12 @@ namespace EC2GroupAccessUpdater
             var region = "";
             string awsAccessKeyId = "";
             string awsSecretAccessKey = "";
-            Parser.Default.ParseArguments<Options>(args)
+            var parser = new Parser(settings =>
+            {
+                settings.HelpWriter = null;
+            });
+            var parserResult = parser.ParseArguments<Options>(args);
+            parserResult
                     .WithParsed<Options>(o =>
                     {
                         securityGroupName = o.SecurityGroupName;
@@ -26,7 +33,24 @@ namespace EC2GroupAccessUpdater
                         region = o.Region;
                         awsAccessKeyId = o.AwsAccessKeyId;
                         awsSecretAccessKey = o.AwsSecretAccessKey;
+                    })
+                    .WithNotParsed<Options>(errs =>
+                    {
+                        var helpText = HelpText.AutoBuild(parserResult, h =>
+                        {
+                            h.AutoVersion = false;
+                            h.AdditionalNewLineAfterOption = false;
+                            return HelpText.DefaultParsingErrorsHandler(parserResult, h);
+                        }, e => e);
+
+                        Console.WriteLine(helpText);
                     });
+
+
+            if (parserResult.Tag == ParserResultType.NotParsed)
+            {
+                return -1;
+            }
 
             try
             {

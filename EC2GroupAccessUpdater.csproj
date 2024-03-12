@@ -5,6 +5,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<AssemblyVersion>1.0.0.0</AssemblyVersion>
+	<FileVersion>1.0.0.0</FileVersion>
+	<Authors>Yojimbo Corp</Authors>
+	<Copyright>Copyright 2024 Yojimbo Corp. All rights reserved.</Copyright>
+	<Version>$(VersionPrefix)</Version>
   </PropertyGroup>
 
   <ItemGroup>
