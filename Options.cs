@@ -26,5 +26,3 @@ namespace EC2GroupAccessUpdater
 
     }
 }
-
-// Path: Program.cs
