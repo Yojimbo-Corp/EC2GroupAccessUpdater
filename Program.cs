@@ -11,7 +11,7 @@ namespace EC2GroupAccessUpdater
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             string securityGroupName = "";
             string ruleDescription = "";
@@ -49,8 +49,7 @@ namespace EC2GroupAccessUpdater
                 var securityGroup = describeSecurityGroupsResponse.SecurityGroups.FirstOrDefault();
                 if (securityGroup == null)
                 {
-                    Console.WriteLine($"Security group '{securityGroupName}' not found.");
-                    return;
+                    throw new Exception($"Security group '{securityGroupName}' not found.");
                 }
 
                 var ruleFound = false;
@@ -118,7 +117,10 @@ namespace EC2GroupAccessUpdater
             catch (Exception e)
             {
                 Console.WriteLine($"An error occurred: {e.Message}");
+                return -1;
             }
+
+            return 0;
         }
     }
 }
