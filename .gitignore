@@ -362,3 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Properties/launchSettings.json
+com.peter.ec2groupaccessupdater.plist
+cron-wrapper.sh
+launchd.log
+cron.log
