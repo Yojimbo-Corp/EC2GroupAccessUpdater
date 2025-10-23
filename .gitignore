@@ -366,3 +366,4 @@ com.peter.titleio-developers-home-ip-updater.plist
 titleio-developers-home-ip-updater.sh
 launchd.log
 cron.log
+logs/
